@@ -113,6 +113,7 @@ class Game {
         // Check if guess is correct
         guessNum += 1;
         if (guess == word) {
+            revealAll();
             gameOver = true;
             return .winGuess;
         }
@@ -120,12 +121,18 @@ class Game {
         // Check if a losing guess, otherwise incorrect guess
         incorrectGuessNum += 1;
         if (incorrectGuessNum == guessMax) {
+            gameOver = true;
             return .lossGuess;
         }
         return .incorrectGuess;
     }
     
-    /* Function that returns a string version of the GuessArray, where underscores represented parts of 
+    /* Function that reveals all words in the guess array. */
+    private func revealAll() {
+        guessArray = wordArray;
+    }
+    
+    /* Function that returns a string version of the GuessArray, where underscores represent parts of
      * the word that have not yet been guessed. */
     func getCurrentGuess() -> String {
         var string = "";

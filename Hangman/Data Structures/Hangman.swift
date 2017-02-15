@@ -76,7 +76,7 @@ class Hangman : NSObject, NSCoding {
     
     
     /* Starts a game using a random word from the word dictionary API, filtered by the current object's 
-     * options. */
+     * options. Makes an asynchronous call and requires time for the current game to register. */
     func startOnePlayerGame() throws {
         // Create dictionary URL based off of current options
         let dif = "?difficulty=" + String(difficulty);
