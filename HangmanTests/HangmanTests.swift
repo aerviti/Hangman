@@ -7,12 +7,23 @@
 //
 
 import XCTest
+import Foundation
+@testable import Hangman
 
 class HangmanTests: XCTestCase {
+    
+    var hangman: Hangman!;
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        hangman = Hangman();
+        do{
+            try hangman.startOnePlayerGame();
+        }
+        catch {
+            print("error");
+        }
     }
     
     override func tearDown() {
@@ -26,8 +37,9 @@ class HangmanTests: XCTestCase {
     }
     
     func testRESTAPI() {
-        let hangman = Hangman();
-        hangman.startOnePlayerGame();
+        while (hangman.currentGame == nil) {
+        }
+        print(hangman.currentGame?.word ?? "No Game");
     }
     
     func testPerformanceExample() {

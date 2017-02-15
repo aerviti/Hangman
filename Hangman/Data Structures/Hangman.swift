@@ -22,6 +22,8 @@ class Hangman : NSObject, NSCoding {
         case invalidDictionaryURL;
     }
     
+    
+    
     // MARK: - Properties
     
     let dictionaryURL = "http://linkedin-reach.hagbpyjegb.us-west-2.elasticbeanstalk.com/words"
@@ -32,6 +34,7 @@ class Hangman : NSObject, NSCoding {
     var wordLengthMax: Int;
     var stats: Statistics;
     var currentGame: Game?;
+    
     
     
     // MARK: - Initialization
@@ -55,13 +58,20 @@ class Hangman : NSObject, NSCoding {
     }
     
     
+    
     // MARK: - Functions
     
+    /* Returns true if the current game is over, or false if it is not or there is no current game. */
     func isGameOver() -> Bool {
         if let game = currentGame {
             return game.gameOver;
         }
         return false;
+    }
+    
+    /* Returns true if there is a current game, or false if there is not. */
+    func hasGame() -> Bool {
+        return currentGame != nil;
     }
     
     
@@ -85,9 +95,11 @@ class Hangman : NSObject, NSCoding {
                 return;
             }
             
-            // 
+            // Split words into an array and access a random word in that array, passing it to start game
             let words = String(data: data!, encoding: .utf8);
-            print(words!);
+            let wordArray = words!.components(separatedBy: CharacterSet.newlines);
+            let index = Int(arc4random_uniform(UInt32(wordArray.count)));
+            self.startGame(wordArray[index]);
         })
         task.resume();
     }
@@ -164,9 +176,5 @@ class Hangman : NSObject, NSCoding {
         let stats = aDecoder.decodeObject(forKey: "stats") as! Statistics;
         self.init(guessMax: guessMax, difficulty: difficulty, wordLengthMin: wordLengthMin, wordLengthMax: wordLengthMax, stats: stats);
     }
-    
-    
-    
-    
     
 }

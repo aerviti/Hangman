@@ -10,7 +10,6 @@ import Foundation
 
 class Game {
     
-    
     // MARK: - Enumerations
     
     // Enumeration for the six potential outcomes from a guess
