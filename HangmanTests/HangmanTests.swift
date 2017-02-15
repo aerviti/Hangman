@@ -25,6 +25,11 @@ class HangmanTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
+    func testRESTAPI() {
+        let hangman = Hangman();
+        hangman.startOnePlayerGame();
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {

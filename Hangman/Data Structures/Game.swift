@@ -1,0 +1,142 @@
+//
+//  Game.swift
+//  Hangman
+//
+//  Created by Alex Erviti on 2/13/17.
+//  Copyright © 2017 Alejandro Erviti. All rights reserved.
+//
+
+import Foundation
+
+class Game {
+    
+    
+    // MARK: - Enumerations
+    
+    // Enumeration for the six potential outcomes from a guess
+    enum GameOutcome {
+        case gameOver;
+        case alreadyGuessed;
+        case incorrectGuess;
+        case correctGuess;
+        case winGuess;
+        case lossGuess;
+    }
+    
+    
+    
+    // MARK: - Properties
+    
+    var word: String;
+    var wordArray: Array<Character> = Array<Character>();
+    var guessArray: Array<Character> = Array<Character>();
+    var guessMax: Int;
+    var incorrectGuessNum: Int = 0;
+    var guessNum: Int = 0;
+    var revealedLetters: Int = 0;
+    var guessedLetters: Set<Character> = Set<Character>();
+    var gameOver: Bool = false;
+    
+    
+    
+    // MARK: - Initialization
+    
+    init(word: String, guessMax: Int) {
+        self.word = word;
+        self.guessMax = guessMax;
+        
+        //Set up arrays for the given word
+        for letter in word.characters {
+            wordArray.append(letter);
+            guessArray.append("_");
+        }
+    }
+    
+    
+    
+    // MARK: - Functions
+    
+    /* Function used to guess a letter in the secret word. Given a Character, will update guess stats
+     * and the current status of the guess array, along with returning one of six potential outcomes
+     * from the enum GameOutcome. */
+    func guessLetter(_ guess: Character) -> GameOutcome {
+        // Game already over
+        if gameOver { return .gameOver; }
+        
+        // Already guessed
+        if guessedLetters.contains(guess) { return .alreadyGuessed; }
+        
+        // Update guess stats, run through word with guess, and check if incorrect
+        guessNum += 1;
+        guessedLetters.insert(guess);
+        if !guessCheck(guess) {
+            incorrectGuessNum += 1;
+            if (incorrectGuessNum == guessMax) {
+                gameOver = true;
+                return .lossGuess
+            }
+            return .incorrectGuess;
+        }
+        
+        // Win check
+        if (revealedLetters == wordArray.count) {
+            gameOver = true;
+            return .winGuess;
+        }
+        
+        // Otherwise, correct guess
+        return .correctGuess;
+    }
+    
+    
+    /* Runs through the word array with the provided guess and updates the guess array. If the guess is 
+     * contained in the word, return true. Otherwise return false. */
+    private func guessCheck(_ guess: Character) -> Bool {
+        var correctGuess = false;
+        for (index, letter) in wordArray.enumerated() {
+            if (letter == guess) {
+                correctGuess = true;
+                guessArray[index] = letter;
+                revealedLetters += 1;
+            }
+        }
+        return correctGuess;
+    }
+    
+    
+    /* Function used to guess the secret word. Given a String, checks to see if it matches the secret
+     * word, updating guess stats and returning one of six potential outcomes from the the enum 
+     * GameOutcome. */
+    func guessWord(_ guess: String) -> GameOutcome {
+        // Game already over
+        if gameOver { return .gameOver; }
+        
+        // Check if guess is correct
+        guessNum += 1;
+        if (guess == word) {
+            gameOver = true;
+            return .winGuess;
+        }
+        
+        // Check if a losing guess, otherwise incorrect guess
+        incorrectGuessNum += 1;
+        if (incorrectGuessNum == guessMax) {
+            return .lossGuess;
+        }
+        return .incorrectGuess;
+    }
+    
+    /* Function that returns a string version of the GuessArray, where underscores represented parts of 
+     * the word that have not yet been guessed. */
+    func getCurrentGuess() -> String {
+        var string = "";
+        for char in guessArray {
+            string += String(char);
+        }
+        return string;
+    }
+    
+    
+    
+    
+}
