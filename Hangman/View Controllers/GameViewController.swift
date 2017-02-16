@@ -9,6 +9,17 @@
 import UIKit
 
 class GameViewController: UIViewController {
+    
+    // MARK: - Properties
+    
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var newGameButton: UIButton!
+    
+    var hangman: Hangman!;
+    
+    
+    
+    // MARK: - View Loading
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -9,10 +9,24 @@
 import UIKit
 
 class TitleViewController: UIViewController {
+    
+    // MARK: - Properties
+    
+    @IBOutlet weak var onePlayerButton: UIButton!
+    @IBOutlet weak var twoPlayerButton: UIButton!
+    @IBOutlet weak var statsButton: UIButton!
+    
+    var hangman: Hangman!;
+    
+    
+    
+    // MARK: - View Loading
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // Load Hangman instance
+        hangman = Hangman();
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,15 +34,28 @@ class TitleViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    /*
-     // MARK: - Navigation
+    
+    
+    // MARK: - Navigation
      
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Setup options view controller for a one player game
+        if segue.identifier == "OptionsSegue" {
+            let destination = segue.destination as! OptionsViewController;
+            destination.hangman = hangman;
+        }
+        
+        // Setup game view controller for a two player game
+        if segue.identifier == "TwoPlayerSegue" {
+            let destination = segue.destination as! GameViewController;
+            destination.hangman = hangman;
+        }
+    }
+    
+    /* Function handling the return from a game or option view controller. */
+    @IBAction func unwindToTitle(_ sender: UIStoryboardSegue) {
+        
+    }
 
 
 }

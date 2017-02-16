@@ -18,7 +18,8 @@
 		8F75E85A1E53EFE60029B975 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F75E8591E53EFE60029B975 /* Game.swift */; };
 		8F75E85C1E5400A50029B975 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F75E85B1E5400A50029B975 /* Statistics.swift */; };
 		8F75E85F1E54F0D50029B975 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F75E85E1E54F0D50029B975 /* GameViewController.swift */; };
-		8F75E8611E54F1090029B975 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F75E8601E54F1090029B975 /* OptionsViewController.swift */; };
+		8F75E8631E550DD40029B975 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F75E8621E550DD40029B975 /* OptionsViewController.swift */; };
+		8F75E8651E5519060029B975 /* OptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F75E8641E5519060029B975 /* OptionsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +48,8 @@
 		8F75E8591E53EFE60029B975 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Game.swift; path = "Data Structures/Game.swift"; sourceTree = "<group>"; };
 		8F75E85B1E5400A50029B975 /* Statistics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Statistics.swift; path = "Data Structures/Statistics.swift"; sourceTree = "<group>"; };
 		8F75E85E1E54F0D50029B975 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameViewController.swift; path = "View Controllers/GameViewController.swift"; sourceTree = "<group>"; };
-		8F75E8601E54F1090029B975 /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsViewController.swift; path = "View Controllers/OptionsViewController.swift"; sourceTree = "<group>"; };
+		8F75E8621E550DD40029B975 /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsViewController.swift; path = "View Controllers/OptionsViewController.swift"; sourceTree = "<group>"; };
+		8F75E8641E5519060029B975 /* OptionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsTableViewCell.swift; path = "View Controllers/OptionsTableViewCell.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +127,8 @@
 			children = (
 				8F75E82C1E52CD340029B975 /* TitleViewController.swift */,
 				8F75E85E1E54F0D50029B975 /* GameViewController.swift */,
-				8F75E8601E54F1090029B975 /* OptionsViewController.swift */,
+				8F75E8621E550DD40029B975 /* OptionsViewController.swift */,
+				8F75E8641E5519060029B975 /* OptionsTableViewCell.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -240,7 +243,8 @@
 				8F75E82D1E52CD340029B975 /* TitleViewController.swift in Sources */,
 				8F75E85A1E53EFE60029B975 /* Game.swift in Sources */,
 				8F75E82B1E52CD340029B975 /* AppDelegate.swift in Sources */,
-				8F75E8611E54F1090029B975 /* OptionsViewController.swift in Sources */,
+				8F75E8631E550DD40029B975 /* OptionsViewController.swift in Sources */,
+				8F75E8651E5519060029B975 /* OptionsTableViewCell.swift in Sources */,
 				8F75E85C1E5400A50029B975 /* Statistics.swift in Sources */,
 				8F75E85F1E54F0D50029B975 /* GameViewController.swift in Sources */,
 				8F75E83D1E52D4D10029B975 /* Hangman.swift in Sources */,
@@ -458,6 +462,7 @@
 				8F75E83B1E52CD340029B975 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8F75E84F1E52E6910029B975 /* Build configuration list for PBXNativeTarget "HangmanTests" */ = {
 			isa = XCConfigurationList;
@@ -466,6 +471,7 @@
 				8F75E8511E52E6910029B975 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
