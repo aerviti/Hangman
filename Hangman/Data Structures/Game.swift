@@ -41,11 +41,12 @@ class Game {
     // MARK: - Initialization
     
     init(word: String, guessMax: Int) {
-        self.word = word;
+        let capWord = word.uppercased();
+        self.word = capWord;
         self.guessMax = guessMax;
         
         //Set up arrays for the given word
-        for letter in word.characters {
+        for letter in capWord.characters {
             wordArray.append(letter);
             guessArray.append("_");
         }
@@ -106,9 +107,12 @@ class Game {
     /* Function used to guess the secret word. Given a String, checks to see if it matches the secret
      * word, updating guess stats and returning one of six potential outcomes from the the enum 
      * GameOutcome. */
-    func guessWord(_ guess: String) -> GameOutcome {
+    func guessWord(_ g: String) -> GameOutcome {
         // Game already over
         if gameOver { return .gameOver; }
+        
+        // Uppercase entire guess
+        let guess = g.uppercased();
         
         // Check if guess is correct
         guessNum += 1;

@@ -15,6 +15,7 @@ class TitleViewController: UIViewController {
     @IBOutlet weak var onePlayerButton: UIButton!
     @IBOutlet weak var twoPlayerButton: UIButton!
     @IBOutlet weak var statsButton: UIButton!
+    var okButton: UIAlertAction!;
     
     var hangman: Hangman!;
     
@@ -37,7 +38,7 @@ class TitleViewController: UIViewController {
     
     
     // MARK: - Navigation
-     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Setup options view controller for a one player game
         if segue.identifier == "OptionsSegue" {
@@ -49,12 +50,43 @@ class TitleViewController: UIViewController {
         if segue.identifier == "TwoPlayerSegue" {
             let destination = segue.destination as! GameViewController;
             destination.hangman = hangman;
+            let word = sender as! String;
+            hangman.startTwoPlayerGame(word);
         }
     }
     
     /* Function handling the return from a game or option view controller. */
     @IBAction func unwindToTitle(_ sender: UIStoryboardSegue) {
-        
+        // Register cancelled game
+        hangman.clearGame();
+    }
+    
+    
+    @IBAction func twoPlayerTapped(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Pick a word to be guessed:", message: "Word must be between the length of 2 and 12, and contain only letters.", preferredStyle: .alert);
+        alertController.addTextField { (textField) in
+            textField.addTarget(self, action: #selector(self.checkWord(_:)), for: .editingChanged);
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil);
+        let okAction = UIAlertAction(title: "Play", style: .default) { (_) in
+            let word = alertController.textFields![0].text;
+            self.performSegue(withIdentifier: "TwoPlayerSegue", sender: word);
+        }
+        alertController.addAction(cancelAction);
+        alertController.addAction(okAction);
+        okAction.isEnabled = false;
+        self.okButton = okAction;
+        self.present(alertController, animated: true, completion: nil);
+    }
+    
+    func checkWord(_ sender: UITextField) {
+        let allowedCharacters = CharacterSet(charactersIn: "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM");
+        let word = sender.text!;
+        if (word.characters.count >= 2 && word.characters.count <= 12 && word.rangeOfCharacter(from: allowedCharacters.inverted) == nil) {
+            okButton.isEnabled = true;
+        }else {
+            okButton.isEnabled = false;
+        }
     }
 
 

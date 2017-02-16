@@ -31,9 +31,16 @@ class HangmanTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testGame() {
+        hangman = Hangman();
+        hangman.startTwoPlayerGame("TEST");
+        do {
+            let outcome = try hangman.guessLetter("E");
+            XCTAssertTrue(outcome == Game.GameOutcome.correctGuess);
+            print(hangman.currentGame!.getCurrentGuess());
+        }catch {
+            
+        }
     }
     
     func testRESTAPI() {

@@ -1,3 +1,17 @@
 
 
 - Consider case sensitivity of characters/strings
+
+1) Create view that draws a keyboard of buttons + guess word button
+    - Custom buttons that contain a character property of what they represent
+2) Get every button from that view and assign an action target to a "guess letter" function
+    - also assign guess word button to a "guess word" function
+
+1) Create a view that draws labels for each letter in the word
+2) Have it update on each guess
+
+1) Create a view with a hangman drawing with 6 pieces
+2) Have a function that fills in those pieces given a guesses/max-guesses ratio
+
+
+- first new game gives same word??

@@ -16,9 +16,13 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var optionsTable: UITableView!
     var difficultyLabel: UILabel!;
+    var difficultyStepper: UIStepper!;
     var minLengthLabel: UILabel!;
+    var minLengthStepper: UIStepper!;
     var maxLengthLabel: UILabel!;
+    var maxLengthStepper: UIStepper!;
     var guessMaxLabel: UILabel!;
+    var guessMaxStepper: UIStepper!;
     
     var hangman: Hangman!;
     
@@ -52,6 +56,7 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
             }catch {
                 // Word get error
             }
+            // Wait for word to be selected and for game to start
             UIApplication.shared.beginIgnoringInteractionEvents();
             while (!hangman.hasGame()) { }
             UIApplication.shared.endIgnoringInteractionEvents();
@@ -60,7 +65,8 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /* Function handling the return from a game or option view controller. */
     @IBAction func unwindToOptions(_ sender: UIStoryboardSegue) {
-        
+        // Register cancelled game
+        hangman.clearGame();
     }
     
     //MARK: - UITableViewDataSource
@@ -85,6 +91,7 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.optionsTitleLabel.text = "Difficulty";
             cell.optionsCounter.text = String(hangman.difficulty);
             difficultyLabel = cell.optionsCounter;
+            difficultyStepper = cell.optionsStepper;
             cell.optionsStepper.addTarget(self, action: #selector(difficultyChanged(_:)), for: .allTouchEvents);
             cell.optionsStepper.maximumValue = 10;
             cell.optionsStepper.minimumValue = 1;
@@ -95,6 +102,7 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.optionsTitleLabel.text = "Minimum Word Length";
             cell.optionsCounter.text = String(hangman.wordLengthMin);
             minLengthLabel = cell.optionsCounter;
+            minLengthStepper = cell.optionsStepper;
             cell.optionsStepper.addTarget(self, action: #selector(minLengthChanged(_:)), for: .allTouchEvents);
             cell.optionsStepper.maximumValue = 12;
             cell.optionsStepper.minimumValue = 2;
@@ -105,6 +113,7 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.optionsTitleLabel.text = "Maximum Word Length";
             cell.optionsCounter.text = String(hangman.wordLengthMax);
             maxLengthLabel = cell.optionsCounter;
+            maxLengthStepper = cell.optionsStepper;
             cell.optionsStepper.addTarget(self, action: #selector(maxLengthChanged(_:)), for: .allTouchEvents);
             cell.optionsStepper.maximumValue = 12;
             cell.optionsStepper.minimumValue = 2;
@@ -115,6 +124,7 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.optionsTitleLabel.text = "Guess Limit";
             cell.optionsCounter.text = String(hangman.guessMax);
             guessMaxLabel = cell.optionsCounter;
+            guessMaxStepper = cell.optionsStepper;
             cell.optionsStepper.addTarget(self, action: #selector(guessMaxChanged(_:)), for: .allTouchEvents);
             cell.optionsStepper.maximumValue = 20;
             cell.optionsStepper.minimumValue = 1;
@@ -149,6 +159,7 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Change maximum word length if minimum word length exceeds it
         if (newVal > hangman.wordLengthMax) {
             maxLengthLabel.text = String(newVal);
+            maxLengthStepper.value = Double(newVal);
             hangman.wordLengthMax = newVal;
         }
     }
@@ -164,6 +175,7 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Change mimum word length if maximum word length is lower.
         if (newVal < hangman.wordLengthMin) {
             minLengthLabel.text = String(newVal);
+            minLengthStepper.value = Double(newVal);
             hangman.wordLengthMin = newVal;
         }
     }

@@ -74,6 +74,11 @@ class Hangman : NSObject, NSCoding {
         return currentGame != nil;
     }
     
+    /* Function that clears the current game. */
+    func clearGame() {
+        currentGame = nil;
+    }
+    
     
     /* Starts a game using a random word from the word dictionary API, filtered by the current object's 
      * options. Makes an asynchronous call and requires time for the current game to register. */
@@ -81,7 +86,7 @@ class Hangman : NSObject, NSCoding {
         // Create dictionary URL based off of current options
         let dif = "?difficulty=" + String(difficulty);
         let min = "&minLength=" + String(wordLengthMin);
-        let max = "&maxLength=" + String(wordLengthMax);
+        let max = "&maxLength=" + String(wordLengthMax + 1);
         guard let url = URL(string: dictionaryURL + dif + min + max) else {
             throw HangmanError.invalidDictionaryURL;
         }
