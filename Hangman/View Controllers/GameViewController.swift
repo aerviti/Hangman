@@ -26,6 +26,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var rightArm: UIImageView!
     @IBOutlet weak var leftLeg: UIImageView!
     @IBOutlet weak var rightLeg: UIImageView!
+    @IBOutlet weak var frown: UIImageView!
     var partsArray: [UIImageView]!;
     
     // Variables
@@ -161,6 +162,7 @@ class GameViewController: UIViewController {
         for part in partsArray {
             part.isHidden = true;
         }
+        frown.isHidden = true;
     }
     
     /* Function that reveals parts of the hangman based off of the given ratio. */
@@ -168,10 +170,21 @@ class GameViewController: UIViewController {
         let adjustedRatio = ratio * 6.0;
         let lastIndex = Int(adjustedRatio);
         for index in 0..<Int(lastIndex) {
+            partsArray[index].alpha = 1;
             partsArray[index].isHidden = false;
         }
         
-        let remainder = adjustedRatio / Double(lastIndex);
+        // Show portion of next part if remainder
+        if (lastIndex < 6) {
+            let remainder = adjustedRatio - Double(lastIndex);
+            partsArray[lastIndex].isHidden = false;
+            partsArray[lastIndex].alpha = CGFloat(remainder);
+        }
+        
+        // Show frown if all parts shown
+        if (ratio == 1) {
+            frown.isHidden = false;
+        }
     }
 
 }

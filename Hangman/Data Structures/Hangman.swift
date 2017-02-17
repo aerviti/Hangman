@@ -22,6 +22,12 @@ class Hangman : NSObject, NSCoding {
         case invalidDictionaryURL;
     }
     
+    enum URLError {
+        case noWord;
+        case noResponse;
+        case waiting; // a request has been made and is being waited on
+    }
+    
     
     
     // MARK: - Properties
@@ -34,6 +40,7 @@ class Hangman : NSObject, NSCoding {
     var wordLengthMax: Int;
     var stats: Statistics;
     var currentGame: Game?;
+    var urlError: URLError? = nil;
     
     
     
@@ -84,6 +91,7 @@ class Hangman : NSObject, NSCoding {
         return currentGame!.guessMax - currentGame!.incorrectGuessNum;
     }
     
+    /* */
     func remainingGuessesRatio() -> Double {
         return Double(currentGame!.incorrectGuessNum) / Double(currentGame!.guessMax);
     }
@@ -91,21 +99,22 @@ class Hangman : NSObject, NSCoding {
     
     /* Starts a game using a random word from the word dictionary API, filtered by the current object's 
      * options. Makes an asynchronous call and requires time for the current game to register. */
-    func startOnePlayerGame() throws {
+    func startOnePlayerGame() {
         // Create dictionary URL based off of current options
         let dif = "?difficulty=" + String(difficulty);
         let min = "&minLength=" + String(wordLengthMin);
         let max = "&maxLength=" + String(wordLengthMax + 1);
-        guard let url = URL(string: dictionaryURL + dif + min + max) else {
-            throw HangmanError.invalidDictionaryURL;
-        }
+        let url = URL(string: dictionaryURL + dif + min + max)!;
+        
         // Create session and pull random word from dictionary
+        urlError = .waiting;
         let session = URLSession.shared;
         let task = session.dataTask(with: url, completionHandler: { (data, response, error) in
             // Break and print if error occurs
             if (error != nil) {
                 print("Error retrieving word dictionary.");
                 print(error!);
+                self.urlError = .noResponse;
                 return;
             }
             
@@ -113,7 +122,15 @@ class Hangman : NSObject, NSCoding {
             let words = String(data: data!, encoding: .utf8);
             let wordArray = words!.components(separatedBy: CharacterSet.newlines);
             let index = Int(arc4random_uniform(UInt32(wordArray.count)));
-            self.startGame(wordArray[index]);
+            let word = wordArray[index];
+            if (word != "") {
+                self.urlError = nil;
+                self.startGame(word);
+                
+            // Set error since no word exists with the set parameters
+            }else {
+                self.urlError = .noWord;
+            }
         })
         task.resume();
     }

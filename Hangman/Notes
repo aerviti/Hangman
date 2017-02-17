@@ -1,9 +1,6 @@
 
 
-- Consider case sensitivity of characters/strings
 
-1) Create a view with a hangman drawing with 6 pieces
-2) Have a function that fills in those pieces given a guesses/max-guesses ratio
+-STATS!!
 
-
-- first new game gives same word??
+- Change alpha to portion of part

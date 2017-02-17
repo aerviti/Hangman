@@ -43,11 +43,13 @@ class SecretWordView: UIView {
     override func draw(_ rect: CGRect) {
         if (word != nil) {
             let length = CGFloat(word!.characters.count);
-            let spacing: CGFloat = 10.0;
-            let labelWidth = (self.frame.width - spacing*length) / length;
+            let spacing: CGFloat = 5.0;
+            let labelWidth: CGFloat = 20.0;
+            var margin = (self.frame.width - spacing*length - labelWidth*length) / 2;
+            margin += spacing/2;
             for index in 0..<Int(length) {
                 let label = labelArray[index];
-                let x = spacing/2 + labelWidth*CGFloat(index) + spacing*CGFloat(index);
+                let x = margin + labelWidth*CGFloat(index) + spacing*CGFloat(index);
                 label.frame = CGRect(x: x, y: 0, width: labelWidth, height: self.frame.height);
             }
         }
