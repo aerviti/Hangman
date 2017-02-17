@@ -15,7 +15,6 @@ class TitleViewController: UIViewController {
     @IBOutlet weak var onePlayerButton: UIButton!
     @IBOutlet weak var twoPlayerButton: UIButton!
     @IBOutlet weak var statsButton: UIButton!
-    var okButton: UIAlertAction!;
     
     var hangman: Hangman!;
     
@@ -50,6 +49,7 @@ class TitleViewController: UIViewController {
         if segue.identifier == "TwoPlayerSegue" {
             let destination = segue.destination as! GameViewController;
             destination.hangman = hangman;
+            destination.twoPlayer = true;
             let word = sender as! String;
             hangman.startTwoPlayerGame(word);
         }
@@ -62,6 +62,9 @@ class TitleViewController: UIViewController {
     }
     
     
+    var okButton: UIAlertAction!; // Stored for enabling/disabling
+    
+    /* Function handling a Two Player button tap. Presents an alert asking for a word to be used. */
     @IBAction func twoPlayerTapped(_ sender: UIButton) {
         let alertController = UIAlertController(title: "Pick a word to be guessed:", message: "Word must be between the length of 2 and 12, and contain only letters.", preferredStyle: .alert);
         alertController.addTextField { (textField) in
@@ -79,6 +82,7 @@ class TitleViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil);
     }
     
+    /* Helper function that checks to see if the word given is valid for a game of hangman. */
     func checkWord(_ sender: UITextField) {
         let allowedCharacters = CharacterSet(charactersIn: "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM");
         let word = sender.text!;

@@ -25,7 +25,7 @@ class SecretWordView: UIView {
         self.backgroundColor = UIColor.clear;
         for _ in 0..<12 {
             let label = UILabel();
-            label.font = UIFont.systemFont(ofSize: 30);
+            label.font = UIFont.systemFont(ofSize: 22);
             label.adjustsFontSizeToFitWidth = true;
             label.textAlignment = .center;
             label.text = "_";
@@ -60,6 +60,16 @@ class SecretWordView: UIView {
     func updateWord(_ array: [Character]) {
         for (index, char) in array.enumerated() {
             labelArray[index].text = String(char);
+        }
+    }
+    
+    func fillWord(_ array: [Character]) {
+        for (index, char) in array.enumerated() {
+            let letter = labelArray[index].text!;
+            if (letter == "_") {
+                labelArray[index].text = String(char);
+                labelArray[index].textColor = UIColor.red;
+            }
         }
     }
 

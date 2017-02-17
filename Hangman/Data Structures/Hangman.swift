@@ -79,6 +79,15 @@ class Hangman : NSObject, NSCoding {
         currentGame = nil;
     }
     
+    /* Function that returns number of guesses remaining. */
+    func remainingGuesses() -> Int {
+        return currentGame!.guessMax - currentGame!.incorrectGuessNum;
+    }
+    
+    func remainingGuessesRatio() -> Double {
+        return Double(currentGame!.incorrectGuessNum) / Double(currentGame!.guessMax);
+    }
+    
     
     /* Starts a game using a random word from the word dictionary API, filtered by the current object's 
      * options. Makes an asynchronous call and requires time for the current game to register. */
