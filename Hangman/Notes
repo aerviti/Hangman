@@ -1,6 +1,14 @@
 
 
 
--STATS!!
-
 - Change alpha to portion of part
+
+
+STATS
+
+Number of games played
+General win - loss - win:loss - average guess num
+Win - Loss - Win:Loss - Average Guess Num - Best Guess Num per difficulty
+Win - Loss - Win:Loss - Average Guess Num - Best Guess Num per word length
+Win - Loss - Win:Loss - Average Guess Num - Best Guess Num per guess limit
+    (Allow mixies ex: difficulty + guess limit)

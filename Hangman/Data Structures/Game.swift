@@ -34,16 +34,18 @@ class Game {
     var guessNum: Int = 0;
     var revealedLetters: Int = 0;
     var guessedLetters: Set<Character> = Set<Character>();
+    var difficulty: Int; // Equal to 0 if two player game
     var gameOver: Bool = false;
     
     
     
     // MARK: - Initialization
     
-    init(word: String, guessMax: Int) {
+    init(word: String, guessMax: Int, difficulty: Int) {
         let capWord = word.uppercased();
         self.word = capWord;
         self.guessMax = guessMax;
+        self.difficulty = difficulty;
         
         //Set up arrays for the given word
         for letter in capWord.characters {
@@ -55,6 +57,22 @@ class Game {
     
     
     // MARK: - Functions
+    
+    /* Returns true if the game has ended as a loss. Otherwise, returns false. */
+    func winGame() -> Bool {
+        if (revealedLetters == wordArray.count) {
+            return true;
+        }
+        return false;
+    }
+    
+    /* Returns true if the game has neded as a loss. Otherwise, returns false. */
+    func lossGame() -> Bool {
+        if (incorrectGuessNum == guessMax) {
+            return true;
+        }
+        return false;
+    }
     
     /* Function used to guess a letter in the secret word. Given a Character, will update guess stats
      * and the current status of the guess array, along with returning one of six potential outcomes
@@ -71,7 +89,7 @@ class Game {
         guessedLetters.insert(guess);
         if !guessCheck(guess) {
             incorrectGuessNum += 1;
-            if (incorrectGuessNum == guessMax) {
+            if lossGame() {
                 gameOver = true;
                 return .lossGuess
             }
@@ -79,7 +97,7 @@ class Game {
         }
         
         // Win check
-        if (revealedLetters == wordArray.count) {
+        if winGame() {
             gameOver = true;
             return .winGuess;
         }
@@ -124,7 +142,7 @@ class Game {
         
         // Check if a losing guess, otherwise incorrect guess
         incorrectGuessNum += 1;
-        if (incorrectGuessNum == guessMax) {
+        if lossGame() {
             gameOver = true;
             return .lossGuess;
         }
