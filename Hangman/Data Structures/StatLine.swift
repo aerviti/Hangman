@@ -50,12 +50,12 @@ class StatLine: NSObject, NSCoding {
     func addGame(_ game: Game) {
         if game.winGame() {
             wins += 1;
+            averageGuess = (Double(total-1)*averageGuess + Double(game.guessNum)) / Double(total);
+            if (game.guessNum < _bestGuess) {
+                _bestGuess = game.guessNum;
+            }
         }else {
             losses += 1;
-        }
-        averageGuess = (Double(total-1)*averageGuess + Double(game.guessNum)) / Double(total);
-        if (game.guessNum < _bestGuess) {
-            _bestGuess = game.guessNum;
         }
     }
     
