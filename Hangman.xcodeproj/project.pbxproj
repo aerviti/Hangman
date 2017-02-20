@@ -25,6 +25,8 @@
 		8FC893AB1E564A95006B2D0E /* SecretWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC893AA1E564A95006B2D0E /* SecretWordView.swift */; };
 		8FC893AF1E57903F006B2D0E /* WordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC893AE1E57903F006B2D0E /* WordTableViewCell.swift */; };
 		8FC893B11E57BBE8006B2D0E /* StatLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC893B01E57BBE8006B2D0E /* StatLine.swift */; };
+		8FC893B31E581031006B2D0E /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC893B21E581031006B2D0E /* StatsViewController.swift */; };
+		8FC893B51E58C62B006B2D0E /* StatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC893B41E58C62B006B2D0E /* StatsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		8FC893AA1E564A95006B2D0E /* SecretWordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecretWordView.swift; path = "View Controllers/SecretWordView.swift"; sourceTree = "<group>"; };
 		8FC893AE1E57903F006B2D0E /* WordTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WordTableViewCell.swift; path = "View Controllers/WordTableViewCell.swift"; sourceTree = "<group>"; };
 		8FC893B01E57BBE8006B2D0E /* StatLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatLine.swift; path = "Data Structures/StatLine.swift"; sourceTree = "<group>"; };
+		8FC893B21E581031006B2D0E /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatsViewController.swift; path = "View Controllers/StatsViewController.swift"; sourceTree = "<group>"; };
+		8FC893B41E58C62B006B2D0E /* StatsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatsTableViewCell.swift; path = "View Controllers/StatsTableViewCell.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,8 @@
 				8FC893AA1E564A95006B2D0E /* SecretWordView.swift */,
 				8F75E8681E5620860029B975 /* KeyboardView.swift */,
 				8F75E8661E5620650029B975 /* KeyboardButton.swift */,
+				8FC893B21E581031006B2D0E /* StatsViewController.swift */,
+				8FC893B41E58C62B006B2D0E /* StatsTableViewCell.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -256,9 +262,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F75E82D1E52CD340029B975 /* TitleViewController.swift in Sources */,
+				8FC893B51E58C62B006B2D0E /* StatsTableViewCell.swift in Sources */,
 				8FC893AF1E57903F006B2D0E /* WordTableViewCell.swift in Sources */,
 				8F75E85A1E53EFE60029B975 /* Game.swift in Sources */,
 				8F75E82B1E52CD340029B975 /* AppDelegate.swift in Sources */,
+				8FC893B31E581031006B2D0E /* StatsViewController.swift in Sources */,
 				8FC893AB1E564A95006B2D0E /* SecretWordView.swift in Sources */,
 				8F75E8691E5620860029B975 /* KeyboardView.swift in Sources */,
 				8F75E8631E550DD40029B975 /* OptionsViewController.swift in Sources */,

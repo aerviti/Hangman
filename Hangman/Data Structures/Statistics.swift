@@ -8,26 +8,86 @@
 
 import Foundation
 
-class Statistics {
+// Array Extension: repeating value initializer that creates new instances of repeating class
+extension Array {
+    public init(count: Int, elementCreator: @autoclosure () -> Element) {
+        self = (0 ..< count).map { _ in elementCreator() }
+    }
+}
+
+class Statistics: NSObject, NSCoding {
+    
+    // MARK: - Enum
+    
+    enum StatType {
+        case difficulty;
+        case wordLength;
+        case guessMax;
+    }
+    
     
     // MARK: - Properties
     
-    var gameTotal: Int = 0;
-    var wins: Int = 0;
-    var losses: Int = 0;
-    var averageGuess: Int = 0;
-    var difficultyStats: [StatLine] = Array<StatLine>(repeating: StatLine(), count: 11);
-    var wordLengthStats: [StatLine] = Array<StatLine>(repeating: StatLine(), count: 12);
-    var guessMaxStats: [StatLine] = Array<StatLine>(repeating: StatLine(), count: 20);
+    private var score: Int = 0;
+    private var allStat: StatLine = StatLine();
+    private var difficultyStats: [StatLine] = Array<StatLine>(count: 11, elementCreator: StatLine());
+    private var wordLengthStats: [StatLine] = Array<StatLine>(count: 13, elementCreator: StatLine());
+    private var guessMaxStats: [StatLine] = Array<StatLine>(count: 21, elementCreator: StatLine());
+    
+    
     
     // MARK: - Initialization
+    
+    override init() {
+        super.init();
+    }
+    
+    /* Initializer for NSCoding. */
+    init(score: Int, allStat: StatLine, difStats: [StatLine], wlStats: [StatLine], gmStats: [StatLine]) {
+        self.score = score;
+        self.allStat = allStat;
+        self.difficultyStats = difStats;
+        self.wordLengthStats = wlStats;
+        self.guessMaxStats = gmStats;
+    }
     
     
     
     // MARK: - Functions
     
+    /* Return total games played. */
+    func totalGames() -> Int {
+        return allStat.total;
+    }
+    
+    /* Return total wins. */
+    func wins() -> Int {
+        return allStat.wins;
+    }
+    
+    /* Return total losses. */
+    func losses() -> Int {
+        return allStat.losses;
+    }
+    
+    /* Return win:loss ratio. */
     func winLossRatio() -> Double {
-        return Double(wins) / Double(losses);
+        return allStat.winLossRatio;
+    }
+    
+    /* Return average guess. */
+    func averageGuess() -> Double {
+        return allStat.averageGuess;
+    }
+    
+    /* Return best guess. */
+    func bestGuess() -> Int {
+        return allStat.bestGuess;
+    }
+    
+    /* Returns score. */
+    func totalScore() -> Int {
+        return score;
     }
     
     /* Function that stores the finished game in the appropriate stats. */
@@ -35,10 +95,63 @@ class Statistics {
         let guessMax = game.guessMax;
         let wordLength = game.wordArray.count;
         let difficulty = game.difficulty;
+        
+        score += getScore(game);
+        allStat.addGame(game);
+        difficultyStats[difficulty].addGame(game);
+        wordLengthStats[wordLength].addGame(game);
+        guessMaxStats[guessMax].addGame(game);
+    }
+    
+    func getStat(_ type: StatType, _ num: Int) -> StatLine {
+        switch type {
+            case .difficulty:
+                return difficultyStats[num];
+            case .wordLength:
+                return wordLengthStats[num];
+            case .guessMax:
+                return guessMaxStats[num];
+        }
     }
     
     /* Function that deals with games that have not been finished. */
     func unfinishedGame(_ game: Game) {
         // Unimplemented
+    }
+    
+    /* Function that derives a score from a finished game and its variables. */
+    func getScore(_ game: Game) -> Int {
+        if game.winGame() {
+            let difficulty = game.difficulty;
+            let wordLength = game.wordArray.count;
+            let guessMax = game.guessMax;
+            let guesses = game.guessNum;
+            var score = difficulty*wordLength * 200
+            score = score / (guessMax*guesses);
+            return score;
+        }
+        return 0;
+    }
+    
+    
+    
+    // MARK: - Encoding
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(score, forKey: "score");
+        aCoder.encode(allStat, forKey: "allStat");
+        aCoder.encode(difficultyStats, forKey: "difficultyStats");
+        aCoder.encode(wordLengthStats, forKey: "wordLengthStats");
+        aCoder.encode(guessMaxStats, forKey: "guessMaxStats");
+    }
+    
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        let score = aDecoder.decodeInteger(forKey: "score");
+        let allStat = aDecoder.decodeObject(forKey: "allStat") as! StatLine;
+        let difficultyStats = aDecoder.decodeObject(forKey: "difficultyStats") as! [StatLine];
+        let wordLengthStats = aDecoder.decodeObject(forKey: "wordLengthStats") as! [StatLine];
+        let guessMaxStats = aDecoder.decodeObject(forKey: "guessMaxStats") as! [StatLine];
+        self.init(score: score, allStat: allStat, difStats: difficultyStats, wlStats: wordLengthStats, gmStats: guessMaxStats);
     }
 }

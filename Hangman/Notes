@@ -1,14 +1,19 @@
 
 
 
-- Change alpha to portion of part
+x Change alpha to portion of part (too hard)
+v Points system
+
+- phrases
+- every difficulty options
+- no loss play
 
 
 STATS
 
-Number of games played
-General win - loss - win:loss - average guess num
-Win - Loss - Win:Loss - Average Guess Num - Best Guess Num per difficulty
-Win - Loss - Win:Loss - Average Guess Num - Best Guess Num per word length
-Win - Loss - Win:Loss - Average Guess Num - Best Guess Num per guess limit
-    (Allow mixies ex: difficulty + guess limit)
+ Selectors
+ - Pick Difficulty/Word Length/Guess Max (shows all of each)
+    - Pick Diff/WL/GM and a specific number (show one of that num) ???
+ - Two pickings
+    - First is like above (can pick All or a num)
+    - Second is modifier (must pick num?)

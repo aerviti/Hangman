@@ -18,6 +18,8 @@ class GameViewController: UIViewController {
     @IBOutlet weak var guessesLeftLabel: UILabel!
     @IBOutlet weak var keyboardView: KeyboardView!
     @IBOutlet weak var secretWordView: SecretWordView!
+    @IBOutlet weak var scoreTitle: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
     
     // Gallows Properties
     @IBOutlet weak var head: UIImageView!
@@ -55,6 +57,10 @@ class GameViewController: UIViewController {
         guessesLeftLabel.text = "Guesses Left: " + String(hangman.remainingGuesses());
         partsArray = [head,body,leftArm,rightArm,leftLeg,rightLeg];
         hideAllParts();
+        
+        // Temporarily hide score labels
+        scoreTitle.isHidden = true;
+        scoreLabel.isHidden = true;
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,11 +85,19 @@ class GameViewController: UIViewController {
                 disableKeyboard();
                 secretWordView.fillWord(hangman.currentGame!.wordArray);
                 guessesLeftLabel.text = "You lose!";
+                setScore(hangman.currentGame!);
+                // Only store one-player games
+                if !twoPlayer { hangman.stats.storeGame(hangman.currentGame!); }
+                Hangman.saveHangman(hangman: hangman);
                 break;
             
             case .winGuess:
                 disableKeyboard();
                 guessesLeftLabel.text = "You win!";
+                setScore(hangman.currentGame!);
+                // Only store one-player games
+                if !twoPlayer { hangman.stats.storeGame(hangman.currentGame!); }
+                Hangman.saveHangman(hangman: hangman);
                 break;
             
             default:
@@ -97,6 +111,13 @@ class GameViewController: UIViewController {
             button.isEnabled = false;
         }
         keyboardView.wordButton.isEnabled = false;
+    }
+    
+    /* Function that unhides the score labels and sets the appropriate score. */
+    private func setScore(_ game: Game) {
+        scoreTitle.isHidden = false;
+        scoreLabel.isHidden = false;
+        scoreLabel.text = String(hangman.stats.getScore(game));
     }
 
     

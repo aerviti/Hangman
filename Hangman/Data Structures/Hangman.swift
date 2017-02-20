@@ -208,4 +208,19 @@ class Hangman : NSObject, NSCoding {
         self.init(guessMax: guessMax, difficulty: difficulty, wordLengthMin: wordLengthMin, wordLengthMax: wordLengthMax, stats: stats);
     }
     
+    //Save&Load functions
+    
+    //Saves the current set of table plans
+    static func saveHangman(hangman: Hangman) {
+        let successfulSave = NSKeyedArchiver.archiveRootObject(hangman, toFile: Hangman.ArchiveURL.path);
+        if !successfulSave {
+            print("Save error...");
+        }
+    }
+    
+    //Loads the saved set of table plans
+    static func loadHangman() -> Hangman? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Hangman.ArchiveURL.path) as? Hangman;
+    }
+    
 }

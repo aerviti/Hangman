@@ -62,6 +62,7 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
             hangman.startTwoPlayerGame(word);
             destination.hangman = hangman;
         }
+        Hangman.saveHangman(hangman: hangman);
     }
     
     /* Function called when Play is pressed. Handles the start game and makes sure there are no errors 
@@ -100,13 +101,17 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /* Function handling the return from a game or option view controller. */
     @IBAction func unwindToOptions(_ sender: UIStoryboardSegue) {
-        // Register cancelled game
+        if !hangman.isGameOver() {
+            hangman.stats.unfinishedGame(hangman.currentGame!);
+        }
         hangman.clearGame();
     }
     
+    
+    
     //MARK: - UITableViewDataSource
     
-    /* Sets the one section needed for the table view. */
+    /* Sets the sections needed for the table view. */
     func numberOfSections(in tableView: UITableView) -> Int {
         if twoPlayer! {
             return 2;
@@ -114,7 +119,7 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 1
     }
     
-    /* Sets the count of cells to the number of table plans. */
+    /* Sets the count of cells to the number of options needed. */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if twoPlayer! {
             return 1;

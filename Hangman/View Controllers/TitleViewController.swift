@@ -26,7 +26,12 @@ class TitleViewController: UIViewController {
         super.viewDidLoad()
         
         // Load Hangman instance
-        hangman = Hangman();
+        if let hm = Hangman.loadHangman() {
+            hangman = hm;
+        }else {
+            hangman = Hangman();
+            Hangman.saveHangman(hangman: hangman);
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,12 +57,21 @@ class TitleViewController: UIViewController {
             destination.hangman = hangman;
             destination.twoPlayer = true;
         }
+        
+        if segue.identifier == "StatsSegue" {
+            let destination = segue.destination as! StatsViewController;
+            destination.hangman = hangman;
+        }
     }
     
     /* Function handling the return from a game or option view controller. */
     @IBAction func unwindToTitle(_ sender: UIStoryboardSegue) {
-        // Register cancelled game
-        hangman.clearGame();
+        if sender.source is GameViewController {
+            if !hangman.isGameOver() {
+                hangman.stats.unfinishedGame(hangman.currentGame!);
+            }
+            hangman.clearGame();
+        }
     }
 
 }
