@@ -86,8 +86,6 @@ class GameViewController: UIViewController {
                 secretWordView.fillWord(hangman.currentGame!.wordArray);
                 guessesLeftLabel.text = "You lose!";
                 setScore(hangman.currentGame!);
-                // Only store one-player games
-                if !twoPlayer { hangman.stats.storeGame(hangman.currentGame!); }
                 Hangman.saveHangman(hangman: hangman);
                 break;
             
@@ -95,8 +93,6 @@ class GameViewController: UIViewController {
                 disableKeyboard();
                 guessesLeftLabel.text = "You win!";
                 setScore(hangman.currentGame!);
-                // Only store one-player games
-                if !twoPlayer { hangman.stats.storeGame(hangman.currentGame!); }
                 Hangman.saveHangman(hangman: hangman);
                 break;
             

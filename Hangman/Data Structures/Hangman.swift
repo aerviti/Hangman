@@ -173,7 +173,10 @@ class Hangman : NSObject, NSCoding {
     /* Helper function that adds the game results to the statistics if the game has ended. */
     private func registerOutcome(_ outcome: Game.GameOutcome) {
         if (outcome == .winGuess || outcome == .lossGuess) {
-            //Register game stats
+            // Only register one player games
+            if (currentGame!.difficulty != 0) {
+                stats.storeGame(currentGame!);
+            }
         }
     }
     
