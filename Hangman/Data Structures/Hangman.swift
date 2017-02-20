@@ -91,7 +91,7 @@ class Hangman : NSObject, NSCoding {
         return currentGame!.guessMax - currentGame!.incorrectGuessNum;
     }
     
-    /* */
+    /* Function that returns number of guesses remaining as a fraction. */
     func remainingGuessesRatio() -> Double {
         return Double(currentGame!.incorrectGuessNum) / Double(currentGame!.guessMax);
     }
@@ -145,9 +145,6 @@ class Hangman : NSObject, NSCoding {
     /* Helper function that creates the current game with the given word and the max number of guesses 
      * allowed option. */
     private func startGame(_ string: String, _ difficulty: Int) {
-        if (currentGame != nil) {
-            //register game stats as cancelled game???
-        }
         currentGame = Game(word: string, guessMax: guessMax, difficulty: difficulty);
     }
     
