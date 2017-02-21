@@ -90,19 +90,25 @@ class Statistics: NSObject, NSCoding {
         return score;
     }
     
+    /* Returns best score. */
+    func bestScore() -> Int {
+        return allStat.bestScore;
+    }
+    
     /* Function that stores the finished game in the appropriate stats. */
     func storeGame(_ game: Game) {
         let guessMax = game.guessMax;
         let wordLength = game.wordArray.count;
         let difficulty = game.difficulty;
         
-        score += getScore(game);
+        score += Statistics.getScore(game);
         allStat.addGame(game);
         difficultyStats[difficulty].addGame(game);
         wordLengthStats[wordLength].addGame(game);
         guessMaxStats[guessMax].addGame(game);
     }
     
+    /* Function that returns a StatLine with the given stat type and stat value. */
     func getStat(_ type: StatType, _ num: Int) -> StatLine {
         switch type {
             case .difficulty:
@@ -116,11 +122,11 @@ class Statistics: NSObject, NSCoding {
     
     /* Function that deals with games that have not been finished. */
     func unfinishedGame(_ game: Game) {
-        // Unimplemented
+        // No current purpose
     }
     
-    /* Function that derives a score from a finished game and its variables. */
-    func getScore(_ game: Game) -> Int {
+    /* Static function that derives a score from a finished game and its variables. */
+    static func getScore(_ game: Game) -> Int {
         if game.winGame() {
             let difficulty = game.difficulty;
             let wordLength = game.wordArray.count;

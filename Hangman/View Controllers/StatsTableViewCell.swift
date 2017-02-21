@@ -12,6 +12,7 @@ class StatsTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
+    @IBOutlet weak var bestScoreLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var winsLabel: UILabel!
     @IBOutlet weak var lossesLabel: UILabel!

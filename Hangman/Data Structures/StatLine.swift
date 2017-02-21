@@ -27,6 +27,7 @@ class StatLine: NSObject, NSCoding {
         if _bestGuess > 20 { return 0; }
         return _bestGuess;
     }
+    var bestScore: Int = 0;
     
     
     
@@ -36,23 +37,28 @@ class StatLine: NSObject, NSCoding {
         super.init();
     }
     
-    init(wins: Int, losses: Int, avgGuess: Double, bestGuess: Int) {
+    init(wins: Int, losses: Int, avgGuess: Double, bestGuess: Int, bestScore: Int) {
         self.wins = wins;
         self.losses = losses;
         self.averageGuess = avgGuess;
         self._bestGuess = bestGuess;
+        self.bestScore = bestScore;
     }
     
     
     // MARK: - Functions
     
-    /* Function that, given a game, adds whether it was a win or loss and updates the average guess property. */
+    /* Function that, given a game, adds whether it was a win or loss and updates the guess and score properties. */
     func addGame(_ game: Game) {
         if game.winGame() {
             wins += 1;
             averageGuess = (Double(total-1)*averageGuess + Double(game.guessNum)) / Double(total);
             if (game.guessNum < _bestGuess) {
                 _bestGuess = game.guessNum;
+            }
+            let score = Statistics.getScore(game);
+            if (score > bestScore) {
+                bestScore = score;
             }
         }else {
             losses += 1;
@@ -68,6 +74,7 @@ class StatLine: NSObject, NSCoding {
         aCoder.encode(losses, forKey: "losses");
         aCoder.encode(averageGuess, forKey: "averageGuess");
         aCoder.encode(_bestGuess, forKey: "bestGuess");
+        aCoder.encode(bestScore, forKey: "bestScore");
     }
     
     
@@ -76,7 +83,8 @@ class StatLine: NSObject, NSCoding {
         let losses = aDecoder.decodeInteger(forKey: "losses");
         let averageGuess = aDecoder.decodeDouble(forKey: "averageGuess");
         let bestGuess = aDecoder.decodeInteger(forKey: "bestGuess");
-        self.init(wins: wins, losses: losses, avgGuess: averageGuess, bestGuess: bestGuess);
+        let bestScore = aDecoder.decodeInteger(forKey: "bestScore");
+        self.init(wins: wins, losses: losses, avgGuess: averageGuess, bestGuess: bestGuess, bestScore: bestScore);
     }
     
 }

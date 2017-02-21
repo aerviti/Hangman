@@ -113,7 +113,7 @@ class GameViewController: UIViewController {
     private func setScore(_ game: Game) {
         scoreTitle.isHidden = false;
         scoreLabel.isHidden = false;
-        scoreLabel.text = String(hangman.stats.getScore(game));
+        scoreLabel.text = String(Statistics.getScore(game));
     }
 
     

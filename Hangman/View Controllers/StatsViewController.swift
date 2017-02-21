@@ -22,6 +22,7 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // MARK: - Properties
     
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var bestScoreLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var winsLabel: UILabel!
     @IBOutlet weak var lossesLabel: UILabel!
@@ -48,6 +49,7 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         // Load statistics labels
         let stats: Statistics = hangman.stats;
+        bestScoreLabel.text = String(stats.bestScore());
         scoreLabel.text = String(stats.totalScore());
         totalLabel.text = String(stats.totalGames());
         winsLabel.text = String(stats.wins());
@@ -151,6 +153,7 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 stat = hangman.stats.getStat(.guessMax, indexPath.section+1);
         }
         
+        cell.bestScoreLabel.text = String(stat.bestScore);
         cell.totalLabel.text = String(stat.total);
         cell.winsLabel.text = String(stat.wins);
         cell.lossesLabel.text = String(stat.losses);

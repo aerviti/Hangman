@@ -8,11 +8,6 @@
 
 import Foundation
 
-//
-// Class used to
-//
-//
-
 class Hangman : NSObject, NSCoding {
     
     // MARK: - Enumerations
