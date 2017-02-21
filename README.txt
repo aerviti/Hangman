@@ -28,11 +28,18 @@ Github: https://github.com/aerviti/Hangman
    - Get scored based on the selected options and your correct guess number
 * Guessing Keyboard
    - Easily guess letters by tapping on the letter you want to guess
-   - Keys of already guessed letters automatically disabled
+   - Keys of already guessed letters are automatically disabled
    - Guess a word to minimize your correct guess number for maximum points
-* 
-
-
+* Updating Hangman Image As You Guess
+   - A 6 piece hangman image updates as you guess incorrectly
+   - For guess limits other than 6, parts of the hangman will slowly increase in opacity 
+     for fluidity
+* Autofill Secret Word On Loss
+   - In case of a loss, missing letters will appear in red
+* Single Player Statistic Tracking
+   - Total score, total games, wins, losses, win:loss ratio, average winning guess number, best 
+     winning guess number, and best score all persistently tracked for the user
+   - Filter statistics based on difficulty, word length, and guess limit
 
 
 
