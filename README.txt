@@ -45,7 +45,7 @@ Github: https://github.com/aerviti/Hangman
 
 ///////////////Code Structure///////////////
 
-The code has been written in Swift and divided into two folders. The backend code that runs the game, stores and manages the statistics, and handles all game arguments is found in the “Data Structures” folder. All of the front end code dealing with UI is found in the “View Controllers” folder. Several classes found in the “View Controllers” folder also have links to visual Interface Builder objects found in the Main.storyboard file (These links are normally marked with @IBOutlet or @IBAction).
+The code has been written in Swift and divided into two folders found in the Hangman directory. The backend code that runs the game, stores and manages the statistics, and handles all game arguments is found in the “Data Structures” folder. All of the front end code dealing with UI is found in the “View Controllers” folder. Several classes found in the “View Controllers” folder also have links to visual Interface Builder objects found in the Main.storyboard file (These links are normally marked with @IBOutlet or @IBAction).
 
 
 I. DATA STRUCTURES
