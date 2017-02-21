@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 // Array Extension: repeating value initializer that creates new instances of repeating class
 extension Array {
@@ -97,6 +98,7 @@ class Statistics: NSObject, NSCoding {
     
     /* Function that stores the finished game in the appropriate stats. */
     func storeGame(_ game: Game) {
+        // Normal storage
         let guessMax = game.guessMax;
         let wordLength = game.wordArray.count;
         let difficulty = game.difficulty;
@@ -106,6 +108,9 @@ class Statistics: NSObject, NSCoding {
         difficultyStats[difficulty].addGame(game);
         wordLengthStats[wordLength].addGame(game);
         guessMaxStats[guessMax].addGame(game);
+        
+        // Core Data storage
+        
     }
     
     /* Function that returns a StatLine with the given stat type and stat value. */
