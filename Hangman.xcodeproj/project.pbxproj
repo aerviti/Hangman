@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F04E80B1E5BCDAB005CCC16 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F04E80A1E5BCDAB005CCC16 /* CoreData.framework */; };
+		8F04E80E1E5BCDDD005CCC16 /* Statistics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8F04E80C1E5BCDDD005CCC16 /* Statistics.xcdatamodeld */; };
 		8F75E82B1E52CD340029B975 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F75E82A1E52CD340029B975 /* AppDelegate.swift */; };
 		8F75E82D1E52CD340029B975 /* TitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F75E82C1E52CD340029B975 /* TitleViewController.swift */; };
 		8F75E8301E52CD340029B975 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F75E82E1E52CD340029B975 /* Main.storyboard */; };
@@ -39,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8F04E80A1E5BCDAB005CCC16 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		8F04E80D1E5BCDDD005CCC16 /* Statistics.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Statistics.xcdatamodel; sourceTree = "<group>"; };
 		8F75E8271E52CD340029B975 /* Hangman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hangman.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F75E82A1E52CD340029B975 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F75E82C1E52CD340029B975 /* TitleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TitleViewController.swift; path = "View Controllers/TitleViewController.swift"; sourceTree = "<group>"; };
@@ -69,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F04E80B1E5BCDAB005CCC16 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,12 +87,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F04E8091E5BCDAA005CCC16 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8F04E80A1E5BCDAB005CCC16 /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8F75E81E1E52CD340029B975 = {
 			isa = PBXGroup;
 			children = (
 				8F75E8291E52CD340029B975 /* Hangman */,
 				8F75E8491E52E6910029B975 /* HangmanTests */,
 				8F75E8281E52CD340029B975 /* Products */,
+				8F04E8091E5BCDAA005CCC16 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,6 +123,7 @@
 				8F75E82E1E52CD340029B975 /* Main.storyboard */,
 				8F75E8331E52CD340029B975 /* LaunchScreen.storyboard */,
 				8F75E8311E52CD340029B975 /* Assets.xcassets */,
+				8F04E80C1E5BCDDD005CCC16 /* Statistics.xcdatamodeld */,
 				8F75E8361E52CD340029B975 /* Info.plist */,
 			);
 			path = Hangman;
@@ -267,6 +282,7 @@
 				8F75E8691E5620860029B975 /* KeyboardView.swift in Sources */,
 				8F75E8631E550DD40029B975 /* OptionsViewController.swift in Sources */,
 				8FC893B11E57BBE8006B2D0E /* StatLine.swift in Sources */,
+				8F04E80E1E5BCDDD005CCC16 /* Statistics.xcdatamodeld in Sources */,
 				8F75E8651E5519060029B975 /* OptionsTableViewCell.swift in Sources */,
 				8F75E85C1E5400A50029B975 /* Statistics.swift in Sources */,
 				8F75E8671E5620650029B975 /* KeyboardButton.swift in Sources */,
@@ -498,6 +514,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8F04E80C1E5BCDDD005CCC16 /* Statistics.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8F04E80D1E5BCDDD005CCC16 /* Statistics.xcdatamodel */,
+			);
+			currentVersion = 8F04E80D1E5BCDDD005CCC16 /* Statistics.xcdatamodel */;
+			path = Statistics.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8F75E81F1E52CD340029B975 /* Project object */;
 }

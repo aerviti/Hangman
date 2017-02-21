@@ -49,14 +49,15 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         // Load statistics labels
         let stats: Statistics = hangman.stats;
-        bestScoreLabel.text = String(stats.bestScore());
         scoreLabel.text = String(stats.totalScore());
-        totalLabel.text = String(stats.totalGames());
-        winsLabel.text = String(stats.wins());
-        lossesLabel.text = String(stats.losses());
-        ratioLabel.text = String(stats.winLossRatio().roundTo(places: 2));
-        avgGuessLabel.text = String(stats.averageGuess().roundTo(places: 2));
-        bestGuessLabel.text = String(stats.bestGuess());
+        let allStat = stats.getAllStat();
+        bestScoreLabel.text = String(allStat.bestScore);
+        totalLabel.text = String(allStat.total);
+        winsLabel.text = String(allStat.wins);
+        lossesLabel.text = String(allStat.losses);
+        ratioLabel.text = String(allStat.winLossRatio.roundTo(places: 2));
+        avgGuessLabel.text = String(allStat.averageGuess.roundTo(places: 2));
+        bestGuessLabel.text = String(allStat.bestGuess);
         
         // Set up picker views for modifier and modifier num text fields
         let screenWidth = view.bounds.size.width;
