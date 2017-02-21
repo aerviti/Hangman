@@ -43,7 +43,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         // DEBUG
-        print(hagman.currentGame!.word);
+        print(hangman.currentGame!.word);
         
         // Set up secret word view
         secretWordView.word = hangman.currentGame!.word;
