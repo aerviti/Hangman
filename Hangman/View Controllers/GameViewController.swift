@@ -42,9 +42,11 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // DEBUG
+        print(secretWordView.word!);
+        
         // Set up secret word view
         secretWordView.word = hangman.currentGame!.word;
-        print(secretWordView.word!);
         secretWordView.setNeedsLayout();
         
         // Set up target keyboard buttons
