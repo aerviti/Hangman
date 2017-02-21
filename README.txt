@@ -37,17 +37,16 @@ Github: https://github.com/aerviti/Hangman
 * Autofill Secret Word On Loss
    - In case of a loss, missing letters will appear in red
 * Single Player Statistic Tracking
-   - Total score, total games, wins, losses, win:loss ratio, average winning guess number, best 
-     winning guess number, and best score all persistently tracked for the user
+   - Total score, total games, wins, losses, win:loss ratio, average winning guess number, 
+     best winning guess number, and best score all persistently tracked for the user
    - Filter statistics based on difficulty, word length, and guess limit
+   - Stats accessed through iOS framework Core Data (which stores data in an SQL database)
 
 UNIMPLEMENTED:
 * Advanced Statistic Tracking
-  - Would allow for advanced stat modifiers through the use of Core Data, an iOS API that allows
-    for the storing and fetching of data using an SQL database. (ex: All games of difficulty 5 
-    where the word length was 8)
-  - All code marked in some way with “Core Data” utilize this API and is not fully implemented.
-    Data is only currently stored but not fetched.
+  - Would allow for advanced tracking of statistics through more stat modifiers on the 
+    statistics page. UI options and functions still need to be implemented for these calls. 
+    (ex: All games of difficulty 5 where the word length was 8)
 
 
 ///////////////Code Structure///////////////
@@ -60,13 +59,13 @@ The back end is split into four classes:
 
 Game: The Game class represents a game of hangman. Given a word and a guess limit (and difficulty for statistical usage), an instance is created. The given word is automatically capitalized to eliminate case sensitivity. This class contains two major functions in which you can interact with the game: guessLetter(_:Character) and guessWord(_:String). Upon calling one of these functions, the guess is processed and a GameOutcome is returned. A GameOutcome is an enumeration within the Game class that represents the six potential outcomes of a guess (game over, win guess, loss guess, already guessed, correct guess, incorrect guess). Previous guesses are stored in a Set to check for duplicate guesses. The current state of the guess word can be accessed through a character array, where unguessed characters are underscores. A win is returned if the number of revealed letters matches the length of the word. A loss is returned if the number of invalid guesses matches the max guesses allowed.
 
-Hangman: The Hangman class is the outer class that runs games, stores options, and stores an instance of Statistics. Aside from several functions that access properties within the Hangman class and the currently stored Game class to provide an abstraction barrier, there are four functions in which you can interact with. There is startOnePlayerGame() that pulls a word from the Dictionary API and creates a new game with the current Hangman instance’s options. There is also a startTwoPlayerGame(_:String) that, given a string, creates a game with that string. Both of these functions funnel into startGame(_:String,_:Int) that creates a game with the current Hangman instance’s options and the provided word and difficulty. There is also a guessLetter(_:Character) and guessWord(_:String) function that acts as the middleman for the same functions within the Game class. Along with passing the arguments along, these functions check to see if the GameOutcome is a win or loss, and registers the game in the stored Statistics instance for stat recording.
+Hangman: The Hangman class is the outer class that runs games, stores options, and stores an instance of Statistics. Aside from several functions that access properties within the Hangman class and the currently stored Game class to provide an abstraction barrier, there are four functions in which you can interact with. There is startOnePlayerGame() that pulls a word from the Dictionary API and creates a new game. There is also a startTwoPlayerGame(_:String) that, given a string, creates a game with that string. Both of these functions funnel into startGame(_:String,_:Int) that creates a game with the current Hangman instance’s options and the provided word and difficulty. There is also a guessLetter(_:Character) and guessWord(_:String) function that acts as the middleman for the same functions within the Game class. Along with passing the arguments along, these functions check to see if the GameOutcome is a win or loss, and registers the game in the stored Statistics instance for stat recording.
 
-Statistics: The Statistics class stores statistics from finished single player games only. It contains a score property measuring the total score across all finished games. It also contains a StatLine representing stats for all games and three arrays for each game option: Difficulty, Word Length, and Guess Max. These arrays contain StatLine instances with the appropriate stats where the array index represents the value for each option. (ex: Difficulty[1] contains a StatLine that represents stats from games with a difficulty of 1.) There are three functions in which you can interact with. storeGame(_:Game) stores the game in the appropriate StatLine instances. getStat(_:StatType,_:Int) returns a StatLine given a stat type and stat value. getScore(_:Game) returns an integer representing the score of the given game based off a custom algorithm. UNIMPLEMENTED: Statistics class would act as the abstraction barrier for all calls to the Core Data API and eventually render storage in the Statistics and StatLine instances obsolete.
+Statistics: The Statistics class stores the total score of the player and is an abstraction barrier to the Core Data API, responsible for all calls to the Core Data (SQL) database including the reading and writing of game results. There are four major functions in which you can interact with. getScore(_:Game) is a static function that returns an integer representing a score of the given game based off a custom algorithm. storeGame(_:Game) stores the given game in the Core Data (SQL) database. getAllStat() creates a StatLine instance including data from all games within the Core Data database. getStat(_:StatType,_:Int) creates a StatLine with data pulled from game results containing the given stat type and stat value.
 
-StatLine: The StatLine class stores total games, wins, losses, average winning guess number, and the best winning guess number. It contains a storeGame(_:Game) function that pulls the game’s stats and stores them in the appropriate properties.
+StatLine: The StatLine class stores total games, wins, losses, average winning guess number, best winning guess number, and best score. It acts as an easy way to access pulled data for the front end.
 
-NOTE: All these objects (except Game) inherit from NSCoding which requires a few functions. These functions are used for storing data within the device.
+NOTE: Hangman and Statistics inherit from NSCoding which requires a few functions. These functions are used for storing instances of the classes within the device.
 
 
 II. VIEW CONTROLLERS
