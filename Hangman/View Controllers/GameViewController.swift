@@ -113,9 +113,11 @@ class GameViewController: UIViewController {
     
     /* Function that unhides the score labels and sets the appropriate score. */
     private func setScore(_ game: Game) {
-        scoreTitle.isHidden = false;
-        scoreLabel.isHidden = false;
-        scoreLabel.text = String(Statistics.getScore(game));
+        if !twoPlayer {
+            scoreTitle.isHidden = false;
+            scoreLabel.isHidden = false;
+            scoreLabel.text = String(Statistics.getScore(game));
+        }
     }
 
     
