@@ -61,6 +61,7 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
             let word = wordTextField.text!;
             hangman.startTwoPlayerGame(word);
             destination.hangman = hangman;
+            destination.twoPlayer = true;
         }
         Hangman.saveHangman(hangman: hangman);
     }
